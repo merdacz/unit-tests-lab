@@ -23,6 +23,22 @@
             }
 
             Console.WriteLine();
+
+            Console.Write("Test #2: Suggest gear increase upon high rpm");
+            try {
+                var sut = new GearPrompter();
+                var result = sut.Recommend(new PrompterInput(1, 3000));
+                if (result.NextGear != 2)
+                {
+                    Console.Write($" --> Assert failed: Expected 1 but got {result.NextGear}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write($" --> Unexpected exception: '{ex.Message}'");
+            }
+
+            Console.WriteLine();
         }
     }
 }
