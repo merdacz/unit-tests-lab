@@ -6,7 +6,7 @@
 
         public GearSuggestion(int nextGear)
         {
-            this.NextGear = nextGear;
+            NextGear = nextGear;
         }
     }
 }

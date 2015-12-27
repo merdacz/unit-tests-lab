@@ -11,7 +11,7 @@
 
         public GearSuggestion Recommend(PrompterInput input)
         {
-            if (!input.IsValid(this.gearbox.MaxGear))
+            if (!input.IsValid(gearbox.MaxGear))
             {
                 throw new InputValidationException();
             }
@@ -23,7 +23,7 @@
                 return new GearSuggestion(suggestedGear);
             }
 
-            if (input.Rpm > 2500 && input.CurrentGear < this.gearbox.MaxGear)
+            if (input.Rpm > 2500 && input.CurrentGear < gearbox.MaxGear)
             {
                 suggestedGear++;
             }

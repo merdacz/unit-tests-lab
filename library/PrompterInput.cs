@@ -8,15 +8,15 @@
 
         public PrompterInput(int currentGear, int rpm)
         {
-            this.CurrentGear = currentGear;
-            this.Rpm = rpm;
+            CurrentGear = currentGear;
+            Rpm = rpm;
         }
 
         public bool IsValid(int maxGear)
         {
-            if (this.CurrentGear < -1) { return false; }
-            if (this.CurrentGear > maxGear) { return false; }
-            if (this.Rpm < 0) { return false; }
+            if (CurrentGear < -1) { return false; }
+            if (CurrentGear > maxGear) { return false; }
+            if (Rpm < 0) { return false; }
             return true;
         }
     }

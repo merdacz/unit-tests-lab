@@ -4,9 +4,9 @@
     {
         public GearboxInfo(int maxGear, int reverseGear, int neutralGear)
         {
-            this.MaxGear = maxGear;
-            this.ReverseGear = reverseGear;
-            this.NeutralGear = neutralGear;
+            MaxGear = maxGear;
+            ReverseGear = reverseGear;
+            NeutralGear = neutralGear;
         }
 
         public int MaxGear { get; }
