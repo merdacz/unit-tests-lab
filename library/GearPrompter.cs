@@ -4,15 +4,17 @@
 
     public class GearPrompter
     {
+        public static readonly int MaxGear = 5;
+
         public GearSuggestion Recommend(PrompterInput input)
         {
             var suggestedGear = input.CurrentGear;
 
-            if (input.Rpm > 2500)
+            if (input.Rpm > 2500 && input.CurrentGear < MaxGear)
             {
                 suggestedGear++;
             }
-            else if (input.Rpm < 1500)
+            else if (input.Rpm < 1500 && input.CurrentGear > 1)
             {
                 suggestedGear--;
             }
