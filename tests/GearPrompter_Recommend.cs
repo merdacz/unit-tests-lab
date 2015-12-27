@@ -23,5 +23,13 @@
             var result = sut.Recommend(new PrompterInput(1, 3000));
             result.NextGear.Should().Be(2);
         }
+
+        [Fact]
+        public void No_change_when_econo_rpm()
+        {
+            var sut = new GearPrompter();
+            var result = sut.Recommend(new PrompterInput(2, 2000));
+            result.NextGear.Should().Be(2);
+        }
     }
 }

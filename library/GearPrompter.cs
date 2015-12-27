@@ -6,7 +6,18 @@
     {
         public GearSuggestion Recommend(PrompterInput input)
         {
-            return new GearSuggestion(0);
+            var suggestedGear = input.CurrentGear;
+
+            if (input.Rpm > 2500)
+            {
+                suggestedGear++;
+            }
+            else if (input.Rpm < 1500)
+            {
+                suggestedGear--;
+            }
+
+            return new GearSuggestion(suggestedGear);
         }
     }
 }
