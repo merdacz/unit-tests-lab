@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GearboxInfo.cs" />
     <Compile Include="GearPrompter.cs" />
     <Compile Include="GearSuggestion.cs" />
     <Compile Include="InputValidationException.cs" />

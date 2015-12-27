@@ -2,15 +2,16 @@
 {
     public class GearPrompter
     {
-        public static readonly int MaxGear = 5;
+        private readonly GearboxInfo gearbox;
 
-        public static readonly int ReverseGear = -1;
-
-        public static readonly int NeutralGear = 0;
+        public GearPrompter(GearboxInfo gearbox)
+        {
+            this.gearbox = gearbox;
+        }
 
         public GearSuggestion Recommend(PrompterInput input)
         {
-            if (!input.IsValid(MaxGear))
+            if (!input.IsValid(this.gearbox.MaxGear))
             {
                 throw new InputValidationException();
             }
@@ -22,7 +23,7 @@
                 return new GearSuggestion(suggestedGear);
             }
 
-            if (input.Rpm > 2500 && input.CurrentGear < MaxGear)
+            if (input.Rpm > 2500 && input.CurrentGear < this.gearbox.MaxGear)
             {
                 suggestedGear++;
             }
