@@ -1,6 +1,7 @@
 ﻿namespace tests
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using FluentAssertions;
 
@@ -56,7 +57,7 @@
             fixture.WithHighestGearChosen().And().WithHighRpm();
             var sut = fixture.CreateSut();
             var result = sut.Recommend(fixture.CurrentInput);
-            result.NextGear.Should().Be(fixture.MaxGear);
+            fixture.Assert.NoGearChange(result);
         }
 
 
@@ -67,7 +68,7 @@
             fixture.WithReverseGearChosen().And().WithCustomRpm(rpm);
             var sut = fixture.CreateSut();
             var result = sut.Recommend(fixture.CurrentInput);
-            result.NextGear.Should().Be(fixture.ReverseGear);
+            fixture.Assert.NoGearChange(result);
         }
 
         [Theory]
@@ -77,9 +78,8 @@
             fixture.WithNeutralGearChosen().And().WithCustomRpm(rpm);
             var sut = fixture.CreateSut();
             var result = sut.Recommend(fixture.CurrentInput);
-            result.NextGear.Should().Be(fixture.NeutralGear);
+            fixture.Assert.NoGearChange(result);
         }
-
 
         [Fact]
         private void Validate_NegativeGear()
@@ -105,15 +105,6 @@
             Assert.Throws<InputValidationException>(() => sut.Recommend(fixture.CurrentInput));
         }
 
-        public static IEnumerable<object[]> AllRpms
-        {
-            get
-            {
-                yield return new object[] { LowRpm };
-                yield return new object[] { EconoRpm };
-                yield return new object[] { HighRpm };
-                yield return new object[] { SomeRpm };
-            }
-        }
+        public static IEnumerable<object[]> AllRpms => GearPrompterFixture.AllRpms.Select(x => new object[] { x });
     }
 }
