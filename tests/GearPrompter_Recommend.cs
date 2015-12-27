@@ -48,5 +48,24 @@
             var result = sut.Recommend(new PrompterInput(maxGear, 3000));
             result.NextGear.Should().Be(maxGear);
         }
+
+
+        [Fact]
+        private void No_change_upon_high_rpm_when_reverse_gear_chosen()
+        {
+            var sut = new GearPrompter();
+            var reverseGear = GearPrompter.ReverseGear;
+            var result = sut.Recommend(new PrompterInput(reverseGear, 3000));
+            result.NextGear.Should().Be(reverseGear);
+        }
+
+        [Fact]
+        private void No_change_upon_high_rpm_when_neutral_gear_chosen()
+        {
+            var sut = new GearPrompter();
+            var neutralGear = GearPrompter.NeutralGear;
+            var result = sut.Recommend(new PrompterInput(neutralGear, 3000));
+            result.NextGear.Should().Be(neutralGear);
+        }
     }
 }
