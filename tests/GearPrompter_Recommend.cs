@@ -96,13 +96,13 @@
                 () => sut.Recommend(new PrompterInput(maxGear + 1, SomeRpm)));
         }
 
-        public static readonly int LowRpm = 1000;
+        public static readonly int LowRpm = 1499;
 
-        public static readonly int EconoRpm = 2000;
+        public static readonly int EconoRpm = 1500;
 
-        public static readonly int HighRpm = 3000;
+        public static readonly int HighRpm = 2501;
 
-        public static readonly int SomeRpm = 1500;
+        public static readonly int SomeRpm = 2000;
 
         public static IEnumerable<object[]> AllRpms
         {
