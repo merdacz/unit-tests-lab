@@ -12,11 +12,12 @@
 
     public class GearPrompter_Recommend
     {
+        private readonly GearPrompterFixture fixture = new GearPrompterFixture();
+
         [Fact]
         public void Suggest_gear_decrease_upon_low_rpm()
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
+            var sut = this.fixture.CreateSut();
             var result = sut.Recommend(new PrompterInput(2, LowRpm));
             result.NextGear.Should().Be(1);
         }
@@ -24,8 +25,7 @@
         [Fact]
         public void Suggest_gear_increase_upon_high_rpm()
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
+            var sut = this.fixture.CreateSut();
             var result = sut.Recommend(new PrompterInput(1, HighRpm));
             result.NextGear.Should().Be(2);
         }
@@ -33,8 +33,7 @@
         [Fact]
         public void No_change_when_econo_rpm()
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
+            var sut = this.fixture.CreateSut();
             var result = sut.Recommend(new PrompterInput(2, EconoRpm));
             result.NextGear.Should().Be(2);
         }
@@ -42,8 +41,7 @@
         [Fact]
         public void No_change_upon_low_rpm_when_lowest_gear_chosen_already()
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
+            var sut = this.fixture.CreateSut();
             var result = sut.Recommend(new PrompterInput(1, LowRpm));
             result.NextGear.Should().Be(1);
         }
@@ -51,10 +49,9 @@
         [Fact]
         public void No_change_upon_high_rpm_when_highest_gear_chosen_already()
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
-            var result = sut.Recommend(new PrompterInput(fixture.MaxGear, HighRpm));
-            result.NextGear.Should().Be(fixture.MaxGear);
+            var sut = this.fixture.CreateSut();
+            var result = sut.Recommend(new PrompterInput(this.fixture.MaxGear, HighRpm));
+            result.NextGear.Should().Be(this.fixture.MaxGear);
         }
 
 
@@ -62,45 +59,40 @@
         [MemberData("AllRpms")]
         private void No_change_upon_given_rpm_when_reverse_gear_chosen(int givenRpm)
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
-            var result = sut.Recommend(new PrompterInput(fixture.ReverseGear, givenRpm));
-            result.NextGear.Should().Be(fixture.ReverseGear);
+            var sut = this.fixture.CreateSut();
+            var result = sut.Recommend(new PrompterInput(this.fixture.ReverseGear, givenRpm));
+            result.NextGear.Should().Be(this.fixture.ReverseGear);
         }
 
         [Theory]
         [MemberData("AllRpms")]
         private void No_change_upon_given_rpm_when_neutral_gear_chosen(int givenRpm)
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
-            var result = sut.Recommend(new PrompterInput(fixture.NeutralGear, givenRpm));
-            result.NextGear.Should().Be(fixture.NeutralGear);
+            var sut = this.fixture.CreateSut();
+            var result = sut.Recommend(new PrompterInput(this.fixture.NeutralGear, givenRpm));
+            result.NextGear.Should().Be(this.fixture.NeutralGear);
         }
 
 
         [Fact]
         private void Validate_NegativeGear()
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
+            var sut = this.fixture.CreateSut();
             Assert.Throws<InputValidationException>(() => sut.Recommend(new PrompterInput(-2, SomeRpm)));
         }
 
         [Fact]
         private void Validate_NegativeRpm()
         {
-            var fixture = new GearPrompterFixture();
-            var sut = fixture.CreateSut();
+            var sut = this.fixture.CreateSut();
             Assert.Throws<InputValidationException>(() => sut.Recommend(new PrompterInput(2, -1)));
         }
 
         [Fact]
         private void Validate_MaxGear()
         {
-            var fixture = new GearPrompterFixture();
-            fixture.WithMaxGear(5);
-            var sut = fixture.CreateSut();
+            this.fixture.WithMaxGear(5);
+            var sut = this.fixture.CreateSut();
             Assert.Throws<InputValidationException>(
                 () => sut.Recommend(new PrompterInput(6, SomeRpm)));
         }
