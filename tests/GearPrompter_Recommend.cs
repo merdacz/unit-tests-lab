@@ -50,21 +50,27 @@
         }
 
 
-        [Fact]
-        private void No_change_upon_high_rpm_when_reverse_gear_chosen()
+        [Theory]
+        [InlineData(1000)]
+        [InlineData(2000)]
+        [InlineData(3000)]
+        private void No_change_upon_given_rpm_when_reverse_gear_chosen(int givenRpm)
         {
             var sut = new GearPrompter();
             var reverseGear = GearPrompter.ReverseGear;
-            var result = sut.Recommend(new PrompterInput(reverseGear, 3000));
+            var result = sut.Recommend(new PrompterInput(reverseGear, givenRpm));
             result.NextGear.Should().Be(reverseGear);
         }
 
-        [Fact]
-        private void No_change_upon_high_rpm_when_neutral_gear_chosen()
+        [Theory]
+        [InlineData(1000)]
+        [InlineData(2000)]
+        [InlineData(3000)]
+        private void No_change_upon_given_rpm_when_neutral_gear_chosen(int givenRpm)
         {
             var sut = new GearPrompter();
             var neutralGear = GearPrompter.NeutralGear;
-            var result = sut.Recommend(new PrompterInput(neutralGear, 3000));
+            var result = sut.Recommend(new PrompterInput(neutralGear, givenRpm));
             result.NextGear.Should().Be(neutralGear);
         }
     }
