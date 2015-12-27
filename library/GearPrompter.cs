@@ -6,7 +6,7 @@
     {
         public GearSuggestion Recommend(PrompterInput input)
         {
-            throw new NotImplementedException();
+            return new GearSuggestion(0);
         }
     }
 }

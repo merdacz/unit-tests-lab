@@ -18,20 +18,14 @@
         {
             var sut = new GearPrompter();
             var result = sut.Recommend(new PrompterInput(2, 1000));
-            if (result.NextGear != 1)
-            {
-                Console.Write($" --> Assert failed: Expected 1 but got {result.NextGear}");
-            }
+            Assert_Equal(result.NextGear, 1);
         }
 
         private static void Suggest_gear_increase_upon_high_rpm()
         {
             var sut = new GearPrompter();
             var result = sut.Recommend(new PrompterInput(1, 3000));
-            if (result.NextGear != 2)
-            {
-                Console.Write($" --> Assert failed: Expected 1 but got {result.NextGear}");
-            }
+            Assert_Equal(result.NextGear, 2);
         }
     }
 }
