@@ -1,35 +1,17 @@
 ﻿namespace console
 {
     using System;
-    using System.Reflection;
 
     using library;
 
+    using static TestHelper;
+
     class Program
     {
-        private static int counter = 1;
-
         static void Main(string[] args)
         {
             Test(Suggest_gear_decrease_upon_low_rpm);
             Test(Suggest_gear_increase_upon_high_rpm);
-        }
-
-        private static void Test(Action body)
-        {
-            var scenario = body.GetMethodInfo().Name;
-            Console.Write($"Test #{counter}: {scenario}");
-            try
-            {
-                body();
-            }
-            catch (Exception ex)
-            {
-                Console.Write($" --> Unexpected exception: '{ex.Message}'");
-            }
-
-            Console.WriteLine();
-            counter++;
         }
 
         private static void Suggest_gear_decrease_upon_low_rpm()
