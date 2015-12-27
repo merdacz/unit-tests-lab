@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GearPrompterFixture.cs" />
     <Compile Include="GearPrompter_Recommend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
