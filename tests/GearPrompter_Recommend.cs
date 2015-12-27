@@ -63,7 +63,7 @@
 
         [Theory]
         [MemberData("AllRpms")]
-        private void No_change_upon_given_rpm_when_reverse_gear_chosen(int rpm)
+        public void No_change_upon_given_rpm_when_reverse_gear_chosen(int rpm)
         {
             fixture.WithReverseGearChosen().And().WithCustomRpm(rpm);
             var sut = fixture.CreateSut();
@@ -73,7 +73,7 @@
 
         [Theory]
         [MemberData("AllRpms")]
-        private void No_change_upon_given_rpm_when_neutral_gear_chosen(int rpm)
+        public void No_change_upon_given_rpm_when_neutral_gear_chosen(int rpm)
         {
             fixture.WithNeutralGearChosen().And().WithCustomRpm(rpm);
             var sut = fixture.CreateSut();
@@ -82,7 +82,7 @@
         }
 
         [Fact]
-        private void Validate_NegativeGear()
+        public void Validate_negative_gear()
         {
             fixture.WithCustomGearChosen(-2);
             var sut = fixture.CreateSut();
@@ -90,7 +90,7 @@
         }
 
         [Fact]
-        private void Validate_NegativeRpm()
+        public void Validate_negative_rpm()
         {
             fixture.WithCustomRpm(-1);
             var sut = fixture.CreateSut();
@@ -98,11 +98,21 @@
         }
 
         [Fact]
-        private void Validate_MaxGear()
+        public void Validate_max_gear()
         {
             fixture.WithMaxGear(5).And().WithCustomGearChosen(6);
             var sut = fixture.CreateSut();
             Assert.Throws<InputValidationException>(() => sut.Recommend(fixture.CurrentInput));
+        }
+
+        [Fact]
+        public void Each_call_to_prompter_gets_audited()
+        {
+            var sut = fixture.CreateSut();
+            sut.Recommend(fixture.CurrentInput);
+            sut.Recommend(fixture.CurrentInput);
+            sut.Recommend(fixture.CurrentInput);
+            fixture.Assert.AuditedEntriesCountIs(3);
         }
 
         public static IEnumerable<object[]> AllRpms => GearPrompterFixture.AllRpms.Select(x => new object[] { x });

@@ -14,6 +14,7 @@
             try
             {
                 body();
+                Console.WriteLine(" --> Test passed. ");
             }
             catch (AssertionException ex)
             {
@@ -23,9 +24,11 @@
             {
                 Console.Write($" --> Unexpected exception: '{ex.Message}'");
             }
-
-            Console.WriteLine();
-            counter++;
+            finally
+            {
+                Console.WriteLine();
+                counter++;
+            }
         }
 
         public static void Assert_Equal(int result, int expected)

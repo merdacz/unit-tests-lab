@@ -44,6 +44,7 @@
     <Compile Include="GearPrompter.cs" />
     <Compile Include="GearSuggestion.cs" />
     <Compile Include="InputValidationException.cs" />
+    <Compile Include="ISuggestionAudit.cs" />
     <Compile Include="PrompterInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -24,6 +24,7 @@ namespace tests
             ReverseGear = -1;
             CurrentGear = 0;
             CurrentRpm = SomeRpm;
+            Auditor = new CountingAudit();
         }
 
         private int MaxGear { get; set; }
@@ -42,9 +43,11 @@ namespace tests
 
         public GearFixtureAssertions Assert => new GearFixtureAssertions(this);
 
+        private CountingAudit Auditor { get; }
+
         public GearPrompter CreateSut()
         {
-            return new GearPrompter(new GearboxInfo(MaxGear, ReverseGear, NeutralGear));
+            return new GearPrompter(new GearboxInfo(MaxGear, ReverseGear, NeutralGear), Auditor);
         }
 
         public GearPrompterFixture WithMaxGear(int maxGear)
@@ -118,6 +121,21 @@ namespace tests
             public void NoGearChange(GearSuggestion suggestion)
             {
                 suggestion.NextGear.Should().Be(fixture.CurrentGear);
+            }
+
+            public void AuditedEntriesCountIs(int expected)
+            {
+                fixture.Auditor.EntriesCount.Should().Be(expected);
+            }
+        }
+
+        public class CountingAudit : ISuggestionAudit
+        {
+            public int EntriesCount { get; private set; } = 0;
+
+            public void Audit(PrompterInput input, GearSuggestion suggestion)
+            {
+                this.EntriesCount++;
             }
         }
     }
