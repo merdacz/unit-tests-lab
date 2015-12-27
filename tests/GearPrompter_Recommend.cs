@@ -73,5 +73,29 @@
             var result = sut.Recommend(new PrompterInput(neutralGear, givenRpm));
             result.NextGear.Should().Be(neutralGear);
         }
+
+
+        [Fact]
+        private void Validate_NegativeGear()
+        {
+            var sut = new GearPrompter();
+            Assert.Throws<InputValidationException>(() => sut.Recommend(new PrompterInput(-2, 1500)));
+        }
+
+        [Fact]
+        private void Validate_NegativeRpm()
+        {
+            var sut = new GearPrompter();
+            Assert.Throws<InputValidationException>(() => sut.Recommend(new PrompterInput(2, -1)));
+        }
+
+        [Fact]
+        private void Validate_MaxGear()
+        {
+            var sut = new GearPrompter();
+            var maxGear = GearPrompter.MaxGear;
+            Assert.Throws<InputValidationException>(
+                () => sut.Recommend(new PrompterInput(maxGear + 1, 1500)));
+        }
     }
 }

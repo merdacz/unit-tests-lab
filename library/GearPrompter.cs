@@ -1,7 +1,5 @@
 ﻿namespace library
 {
-    using System;
-
     public class GearPrompter
     {
         public static readonly int MaxGear = 5;
@@ -12,6 +10,11 @@
 
         public GearSuggestion Recommend(PrompterInput input)
         {
+            if (!input.IsValid(MaxGear))
+            {
+                throw new InputValidationException();
+            }
+
             var suggestedGear = input.CurrentGear;
 
             if (input.CurrentGear <= 0)
